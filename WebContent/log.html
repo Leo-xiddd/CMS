@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>内容发布记录</title>
+	<link rel="stylesheet" type="text/css" href="css/comm.css">
+	<link rel="stylesheet" type="text/css" href="css/media.css">
+</head>
+
+<body>
+	<div id="container">
+	<!--功能按钮-->
+	<header>
+		<table width="100%" cellspacing="0" cellpadding="0"><tbody><tr>
+			<td width=20%>
+				选择媒体：		
+				<select id="meidas">
+					<option>医护端APP</option>
+					<option>客户端APP</option>
+					<option>地推端APP</option>
+				</select>
+			</td>
+			<td align='right'>
+				<select id="phase" type="text">
+					<option value="position">位置</option>
+					<option value="content_type">内容类型</option>
+					<option value="content">内容线索</option>
+					<option value="release_time">发布时间</option>
+					<option value="operator">发布人</option>
+					<option value="policy">投放策略</option>
+				</select>
+				<input id="filter" type="text">
+				<button class="module_butt" href="javascript:void(0)" onclick="filt()">查找</button>
+			</td>
+		</tr></tbody></table>	
+	</header>
+	<!--用户列表-->
+	<div id="Medialist">
+		<table id="tab_medialist" width="100%" cellspacing="0" cellpadding="0">
+			<thead>
+				<th width="15%">发布时间</th>
+				<th width="15%">位置</th>
+				<th width="6%">发布人</th>
+				<th width="13%">内容类型</th>
+				<th>文本缩略或媒体名称</th>
+				<th style="border-right: 0">投放策略</th>				
+			</thead>
+			<tbody id="tbody_medialist">
+				<tr id="1">
+					<td>2018-01-01 12:23:00</td>
+					<td>首页顶部通栏</td>
+					<td>李明</td>
+					<td>图片</td>
+					<td style="text-align: left">1.jpg / aaaaa.jpg / 232323.jpg</td>
+					<td style="border-right: 0">轮播</td>
+				</tr>
+				<tr id="2">
+					<td>2017-12-01 12:23:00</td>
+					<td>“我的”页中部通栏</td>
+					<td>李明</td>
+					<td>文本</td>
+					<td style="text-align: left">啊大家都会氨基酸斯柯达加速度氨基酸...</td>
+					<td style="border-right: 0">静态</td>
+				</tr>
+				<tr id="3">
+					<td style="border-bottom: 0" style="border-bottom: 0">2017-11-01 12:23:00</td>
+					<td style="border-bottom: 0">“服务协议”页底部通栏</td>
+					<td style="border-bottom: 0">李明</td>
+					<td style="border-bottom: 0">图片</td>
+					<td style="text-align: left;border-bottom: 0">2.jpg / ssdsdsd.png / skdjskd.gif</td>
+					<td style="border-right: 0;border-bottom: 0">定时</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="pages">
+		<button id="Fir_page" href="javascript:void(0)" onclick="Topage(1)" class="butt_page">首&nbsp;页</button>
+		<button id="Pre_page" href="javascript:void(0)" onclick="Nextpage('-')" class="butt_page" style="margin-right: 10px">上一页</button>
+		<span>第<span id="curr_page">1</span>页，共<span id="page_num">1</span>页&nbsp;</span>
+		<button id="Next_page" href="javascript:void(0)" onclick="Nextpage('+')" class="butt_page" style="margin-left: 10px">下一页</button>
+		<button id="Las_page" href="javascript:void(0)" onclick="Topage(0)" class="butt_page">尾&nbsp;页</button>
+	</div>
+	<!--遮罩层：用于显示弹层后遮盖下面的页面元素-->
+	<div id="overlay" class="overlay"></div>	
+	<div id="overlay2" class="overlay2"></div>	
+	<!--弹层：警告-->
+	<div id="form_alert" class="popwindow">
+		<div id="form_alert_title" class="pop_head">友好提醒</div>
+		<div class="pop_body" style="text-align: center;padding:20px 40px 10px 40px;">
+			<span id="alert_mess"></span>
+		</div>
+		<div id="alertbutt">
+			<button class="form_butt" href="javascript:void(0)" onclick="close_alerm()">确定</button>		
+		</div>
+	</div>
+	<!--弹层：确认-->
+	<div id="form_confirm" class="popwindow">
+		<div id="form_confirm_title" class="pop_head">友好提醒</div>
+		<div class="pop_body">
+			<div class="pop_body" style="text-align: center;padding:20px 40px 10px 40px;">
+				<span id="warn_mess"></span>
+			</div>
+			<div id="alertbutt">
+				<table width="100%" cellspacing="0" cellpadding="0"><tbody><tr>
+					<td width="50%" align="center">
+						<button class="form_butt" href="javascript:void(0)" onclick="CloseForm('#form_confirm','#overlay')">确定</button>
+					</td>
+					<td align="center">
+						<button class="form_butt" href="javascript:void(0)" onclick="CloseForm('#form_confirm','#overlay')">取消</button>
+					</td>
+				</tr></tbody></table>
+			</div>
+		</div>
+	</div>
+	</div><!--用于结束container-->
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/comm.js"></script>
+<script type="text/javascript" src="js/log.js"></script>
+</html>

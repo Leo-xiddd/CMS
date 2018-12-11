@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>内容管理系统</title>
+	<link rel="stylesheet" type="text/css" href="css/comm.css">
+	<link rel="stylesheet" type="text/css" href="css/frm_title.css">
+</head>
+
+<body>
+	<table width="100%" style="height: 100%" cellspacing="0" cellpadding="0">
+		<tbody><tr style="height: 12%">
+			<td width="15%" valign="top" rowspan="3">
+				<div align="center">
+					<img id='logo' src="img/ltlogo.png" width="130px" height="62px" style="margin-top: 30px;">
+				</div>
+				<div align="center" style="margin-top: 50px;">
+					<div id="menu"><table width="100%" cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+								<td width="5px">
+									<img class='fonttag' src="img/fronttag.png" width="5px" height="70px">
+								</td>
+								<td>
+									<button id="media" class="butt_menu">媒体管理</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<img class='fonttag' src="img/fronttag.png" width="5px" height="70px">
+								</td>
+								<td>
+									<button id="position" class="butt_menu">位置管理</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<img class='fonttag' src="img/fronttag.png" width="5px" height="70px">
+								</td>
+								<td>
+									<button id="content" class="butt_menu">内容管理</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<img class='fonttag' src="img/fronttag.png" width="5px" height="70px">
+								</td>
+								<td>
+									<button id="log" class="butt_menu">发布记录</button>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<img class='fonttag' src="img/fronttag.png" width="5px" height="70px">
+								</td>
+								<td>
+									<button id="usr" class="butt_menu">用户管理</button>
+								</td>
+							</tr>
+						</tbody>
+					</table></div>
+				</div>
+			</td>
+			<td width="10px" style="background-color: #51B1F2;">
+				<div id="bordline"></div>
+			</td>
+			<td valign="top">
+				<table id="header" width="100%" cellspacing="0" cellpadding="0">
+					<tbody><tr>
+						<td id="Title" width="60%">
+							内容管理系统
+						</td>
+						<td id="wlcome" align="right">
+							欢迎您，<span id="account">XXX</span>
+							<span id="Tochangepwd">（修改密码）</span>
+						</td>		
+						<td width=250px align="right">
+							<button id="butt_exit"></button>
+						</td>
+					</tr></tbody>
+				</table>
+			</td>
+		</tr>
+		<tr style="height:8%;background-color: #FFFFFF;">
+			<td width="10px">
+				<div id="bordline"></div>
+			</td>
+			<td>
+				<span id="charpter">内容管理系统 - </span><span id="subtitle">媒体管理</span>
+			</td>
+		</tr>
+		<tr>
+			<td width="10px" style="background-color: #E6EDF5;">
+				<div id="bordline"></div>
+			</td>
+			<td valign="bottom" style="padding-bottom: 10px">
+				<div id="mainbord">
+					<iframe id="main" width=100% height=100% frameborder=0></iframe>
+				</div>
+			</td>
+		</tr></tbody>
+	</table>	
+	
+	<!--遮罩层：用于显示弹层后遮盖下面的页面元素-->
+	<div id="overlay" class="overlay"></div>	
+	<div id="overlay2" class="overlay2"></div>	
+	<!--弹层：修改个人信息-->	
+	<div id="form_ChangePwd" class="popwindow">
+		<div id="title_form_ChangePwd" class="pop_head">修改密码</div>
+		<div class="pop_body">
+			<table cellspacing="0" cellpadding="0"><tbody>
+				<tr>
+					<td align="right">请输入旧密码：</td>
+					<td><input id="old_pwd" type="password"></td>
+				</tr>
+				<tr>
+					<td align="right">请输入新密码：</td>
+					<td><input id="new_pwd" type="password"></td>
+				</tr>
+				<tr>
+					<td align="right">再次输入新密码：</td>
+					<td><input id="pwd_again" type="password"></td>
+				</tr>
+			</tbody></table>
+		</div>
+		<div class="pop_foot">
+			<table width="100%" cellspacing="0" cellpadding="0"><tbody>
+				<tr><td width="50%" align="center" valign="middle">
+					<button href="javascript:void(0)" onclick="CloseForm('#form_ChangePwd','#overlay')">取消</button>
+				</td><td align="center" valign="middle">
+					<button href="javascript:void(0)" onclick="ChangePwd()">确定</button>
+				</td></tr>
+			</tbody></table>				
+		</div>
+	</div>
+	<!--弹层：警告-->
+	<div id="form_alert" class="popwindow">
+		<div id="form_alert_title" class="pop_head">友好提醒</div>
+		<div class="pop_body" style="text-align: center;padding:20px 40px 25px 40px;">
+			<span id="alert_mess"></span>
+		</div>
+		<div id="alertbutt">
+			<button class="form_butt" href="javascript:void(0)" onclick="CloseForm('#form_alert','#overlay2')">确定</button>		
+		</div>
+	</div>	
+	
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/comm.js"></script>
+<script type="text/javascript" src="js/homepage.js"></script>
+</html>

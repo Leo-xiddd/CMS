@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>内容管理</title>
+	<link rel="stylesheet" type="text/css" href="css/comm.css">
+	<link rel="stylesheet" type="text/css" href="css/cont.css">
+</head>
+
+<body>
+	<div id="container">
+	<!--功能按钮-->
+	<header>
+		<table width="100%" cellspacing="0" cellpadding="0"><tbody><tr>
+			<td width=20%>
+				选择媒体：		
+				<select id="meidas">
+					<option>医护端APP</option>
+					<option>客户端APP</option>
+					<option>地推端APP</option>
+				</select>
+			</td>
+			<td width=35%>
+				<button id="AddCont" class="module_butt">编辑内容</button>			
+				<button id="ReleaseCont" class="module_butt">发布</button>
+			</td>
+			<td align='right'>
+				<select id="phase" type="text">
+					<option value="position">位置</option>
+					<option value="label">标签</option>
+					<option value="size">尺寸</option>
+					<option value="type">素材类型</option>
+					<option value="status">状态</option>
+				</select>
+				<input id="filter" type="text">
+				<button class="module_butt" href="javascript:void(0)" onclick="filt()">查找</button>
+			</td>
+		</tr></tbody></table>	
+	</header>
+	<!--用户列表-->
+	<div id="Contlist">
+		<table id="tab_contlist" width="100%" cellspacing="0" cellpadding="0">
+			<thead>
+				<th width="15%">位置</th>
+				<th width="11%">尺寸（高*宽）</th>
+				<th width="8%">素材类型</th>
+				<th width="8%">投放策略</th>
+				<th width="8%">内容状态</th>
+				<th width="40%">落地页地址</th>
+				<th>预览</th>
+			</thead>
+			<tbody id="tbody_contlist">
+				<tr id="1">
+					<td>首页顶部通栏</td>
+					<td>35*120</td>
+					<td>图片</td>
+					<td>静态</td>
+					<td>已发布</td>
+					<td style="text-align: left">http://www.baidu.com</td>
+					<td><a href="javascript:void(0)" onclick="reviewpic()">预览</a></td>
+				</tr>
+				<tr id="2">
+					<td>“我的”页中部通栏</td>
+					<td></td>
+					<td>文本</td>
+					<td>静态</td>
+					<td>待发布</td>
+					<td></td>
+					<td>预览</td>
+				</tr>
+				<tr id="3">
+					<td>“服务协议”页底部通栏</td>
+					<td>35*120</td>
+					<td>图片，视频</td>
+					<td>轮播</td>
+					<td>待发布</td>
+					<td style="text-align: left">http://www.baidu.com</td>
+					<td>预览</td>
+				</tr>
+				<tr id="3">
+					<td>“服务协议”页文本</td>
+					<td></td>
+					<td>文本</td>
+					<td>静态</td>
+					<td>待发布</td>
+					<td></td>
+					<td>预览</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="pages">
+		<button id="Fir_page" href="javascript:void(0)" onclick="Topage(1)" class="butt_page">首&nbsp;页</button>
+		<button id="Pre_page" href="javascript:void(0)" onclick="Nextpage('-')" class="butt_page" style="margin-right: 10px">上一页</button>
+		<span>第<span id="curr_page">1</span>页，共<span id="page_num">1</span>页&nbsp;</span>
+		<button id="Next_page" href="javascript:void(0)" onclick="Nextpage('+')" class="butt_page" style="margin-left: 10px">下一页</button>
+		<button id="Las_page" href="javascript:void(0)" onclick="Topage(0)" class="butt_page">尾&nbsp;页</button>
+	</div>
+	<!--遮罩层：用于显示弹层后遮盖下面的页面元素-->
+	<div id="overlay" class="overlay"></div>	
+	<div id="overlay2" class="overlay2"></div>	
+	<!--弹层：用户信息，用于添加本地用户或者修改用户信息-->	
+	<div id="form_Content" class="popwindow">
+		<div id="title_Content" class="pop_head">编辑内容</div>
+		<div class="pop_body">
+			<table id="Content_table" cellspacing="0" cellpadding="0"><tbody>
+				<tr>
+					<td style="line-height: 40px" valign="top">
+						<div><b>位置：</b><span id="posi"></span></div>
+						<div><b>尺寸：</b><span id="wh"></span></div>
+						<div><b>素材类型：</b><select id="tyy">
+								<option>文本</option>
+								<option>图片</option>
+								<option>视频</option>
+							</select></div>
+						<div><b>投放策略：</b><select id="policy">
+							<option>静态</option>
+						</select></div>
+						<div id="lunbo" style="margin-top: 10px; line-height: 25px">注：轮播模式可以选择多个<br>同尺寸同类型素材，<br>素材间将以每秒一次的<br>频率进行循环展示</div>
+					</td>
+					<td rowspan="20" style="padding-left: 30px;line-height: 30px;" valign="top">
+						<div id="contlist">
+							<div class="txt">
+								请输入要发布的文本内容：<br>
+								<textarea style="width: 550px; height: 250px;"></textarea>
+							</div>
+							<div class="img">								
+								请选择素材图片：<button id="picfile_selector">选择文件</button><input type="file" onchange="addFile()" id="picfile_select" multiple="single" style="display: none"><br>
+								<img id="pic_sm_pic" src="" width="180px" height="180px">
+							</div>
+							<div class="media">
+								请选择素材视频：<button id="videofile_selector">选择文件</button><input type="file" id="" onchange="addFile()" multiple="single" style="display: none"><br>
+								<img src="" width="180px" height="180px">
+							</div>
+							<div></div>
+						</div>
+					</td>
+					<td class="hlink" valign="top" style="padding-left: 30px;">
+						<div style="margin-top: 5px;margin-bottom: 10px;">请配置落地页地址：</div>
+						<div>
+							<textarea id="linkpage" style="width: 200px; height: 173px;"></textarea>
+						</div>						
+					</td>
+				</tr>
+			</tbody></table>
+		</div>
+		<div class="pop_foot">
+			<table width="100%" cellspacing="0" cellpadding="0"><tbody>
+				<tr><td width="50%" align="center" valign="middle">
+					<button href="javascript:void(0)" onclick="CloseForm('#form_Content','#overlay')">取消</button>
+				</td><td align="center" valign="middle">
+					<button href="javascript:void(0)" onclick="CloseForm('#form_Content','#overlay')">保存</button>
+				</td></tr>
+			</tbody></table>				
+		</div>
+	</div>
+	<!--弹层：警告-->
+	<div id="form_alert" class="popwindow">
+		<div id="form_alert_title" class="pop_head">友好提醒</div>
+		<div class="pop_body" style="text-align: center;padding:20px 40px 10px 40px;">
+			<span id="alert_mess"></span>
+		</div>
+		<div id="alertbutt">
+			<button class="form_butt" href="javascript:void(0)" onclick="close_alerm()">确定</button>		
+		</div>
+	</div>
+	<!--弹层：确认-->
+	<div id="form_confirm" class="popwindow">
+		<div id="form_confirm_title" class="pop_head">友好提醒</div>
+		<div class="pop_body">
+			<div class="pop_body" style="text-align: center;padding:20px 40px 10px 40px;">
+				<span id="warn_mess"></span>
+			</div>
+			<div id="confirmbutt">
+				<table width="100%" cellspacing="0" cellpadding="0"><tbody><tr>
+					<td width="50%" align="center">
+						<button class="form_butt" href="javascript:void(0)" onclick="CloseForm('#form_confirm','#overlay')">确定</button>
+					</td>
+					<td align="center">
+						<button class="form_butt" href="javascript:void(0)" onclick="CloseForm('#form_confirm','#overlay')">取消</button> 
+					</td>
+				</tr></tbody></table>
+			</div>
+		</div>
+	</div>
+	<!-- 弹层-图片预览 -->
+	<div id="pic_review" class="popwindow">
+		<img id="picv" src="">
+		<img src="img/close.png" width="12px" height="12px" id="closepic">
+	</div>
+	</div><!--用于结束container-->
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/comm.js"></script>
+<script type="text/javascript" src="js/cont.js"></script>
+</html>

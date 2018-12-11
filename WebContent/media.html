@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>媒体管理</title>
+	<link rel="stylesheet" type="text/css" href="css/comm.css">
+	<link rel="stylesheet" type="text/css" href="css/media.css">
+</head>
+
+<body>
+	<div id="container">
+	<!--功能按钮-->
+	<header>
+		<table width="100%" cellspacing="0" cellpadding="0"><tbody><tr>
+			<td width=35%>
+				<button id="AddMedia" class="module_butt">添加媒体</button>			
+				<button id="DelMedia" class="module_butt">删除媒体</button>
+			</td>
+			<td align='right'>
+				<select id="phase" type="text">
+					<option value="group">媒体名称</option>
+					<option value="intetag">接口标签</option>
+				</select>
+				<input id="filter" type="text">
+				<button class="module_butt" style="width: 60px" href="javascript:void(0)" onclick="filt()">查找</button>
+			</td>
+		</tr></tbody></table>	
+	</header>
+	<!--媒体列表-->
+	<div id="Medialist">
+		<table id="tab_medialist" width="100%" cellspacing="0" cellpadding="0">
+			<thead>
+				<th width="9%">ID</th>
+				<th width="27%">媒体名称</th>
+				<th width="14%">接口标签</th>
+				<th style="border-right: 0">说明</th>
+			</thead>
+			<tbody id="tbody_medialist">
+				<tr id="1">
+					<td>1</td>
+					<td>医护端APP</td>
+					<td>yihu</td>
+					<td style="text-align: left;">医护业务系统用于医护使用的APP</td>
+				</tr>
+				<tr id="2">
+					<td>2</td>
+					<td>客户端APP</td>
+					<td>kehu</td>
+					<td style="text-align: left;border-right: 0">医护业务系统用于患者及亲属使用的APP</td>
+				</tr>
+				<tr id="3">
+					<td >3</td>
+					<td >地推端APP</td>
+					<td style="border-bottom: 0">ditui</td>
+					<td style="text-align: left;border-right: 0;border-bottom: 0">医护业务系统用于地推人员使用的APP</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="pages">
+		<button id="Fir_page" href="javascript:void(0)" onclick="Topage(1)" class="butt_page">首&nbsp;页</button>
+		<button id="Pre_page" href="javascript:void(0)" onclick="Nextpage('-')" class="butt_page" style="margin-right: 10px">上一页</button>
+		<span>第<span id="curr_page">1</span>页，共<span id="page_num">1</span>页&nbsp;</span>
+		<button id="Next_page" href="javascript:void(0)" onclick="Nextpage('+')" class="butt_page" style="margin-left: 10px">下一页</button>
+		<button id="Las_page" href="javascript:void(0)" onclick="Topage(0)" class="butt_page">尾&nbsp;页</button>
+	</div>
+	<!--遮罩层：用于显示弹层后遮盖下面的页面元素-->
+	<div id="overlay" class="overlay"></div>
+	<div id="overlay2" class="overlay2"></div>		
+	<!--弹层：媒体管理，用于添加或修改媒体信息-->	
+	<div id="form_MediaInfo" class="popwindow">
+		<div id="title_MediaInfo" class="pop_head">媒体管理</div>
+		<div class="pop_body">
+			<table id="Mediainfo_table" cellspacing="0" cellpadding="0"><tbody>
+				<tr>
+					<td>媒体名称<input id="media_name"></td>
+				</tr>
+				<tr>
+					<td>接口标签<input id="inter_tag"></td>
+				</tr>
+				<tr>
+					<td style="padding-top: 10px">说明<br><textarea id='note'></textarea></td>
+				</tr>
+			</tbody></table>
+		</div>
+		<div class="pop_foot">
+			<table width="100%" cellspacing="0" cellpadding="0"><tbody>
+				<tr><td width="50%" align="center" valign="middle">
+					<button href="javascript:void(0)" onclick="CloseForm('#form_MediaInfo','#overlay')">取消</button>
+				</td><td align="center" valign="middle">
+					<button href="javascript:void(0)" onclick="CloseForm('#form_MediaInfo','#overlay')">保存</button>
+				</td></tr>
+			</tbody></table>				
+		</div>
+	</div>
+	<!--弹层：警告-->
+	<div id="form_alert" class="popwindow">
+		<div id="form_alert_title" class="pop_head">友好提醒</div>
+		<div class="pop_body" style="text-align: center;padding:20px 40px 10px 40px;">
+			<span id="alert_mess"></span>
+		</div>
+		<div id="alertbutt">
+			<button class="form_butt" href="javascript:void(0)" onclick="close_alerm()">确定</button>		
+		</div>
+	</div>
+	<!--弹层：确认-->
+	<div id="form_confirm" class="popwindow">
+		<div id="form_confirm_title" class="pop_head">友好提醒</div>
+		<div class="pop_body">
+			<div class="pop_body" style="text-align: center;padding:20px 40px 10px 40px;">
+				<span id="warn_mess"></span>
+			</div>
+			<div id="confirmbutt">
+				<table width="100%" cellspacing="0" cellpadding="0"><tbody><tr>
+					<td width="50%" align="center">
+						<button class="form_butt" href="javascript:void(0)" onclick="CloseForm('#form_confirm','#overlay')">确定</button>
+					</td>
+					<td align="center">
+						<button class="form_butt" href="javascript:void(0)" onclick="CloseForm('#form_confirm','#overlay')">取消</button>
+					</td>
+				</tr></tbody></table>
+			</div>
+		</div>
+	</div>
+	</div><!--用于结束container-->
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/comm.js"></script>
+<script type="text/javascript" src="js/media.js"></script>
+</html>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><atmp-config>
+	<DB_conf>
+		<HostName>127.0.0.1</HostName>
+		<Port>3306</Port>
+		<DBname>db_cms</DBname>
+		<Usrname>root</Usrname>
+		<Passwd>root</Passwd>
+	</DB_conf>
+	<LDAP_conf>
+		<host>172.16.8.1</host> 
+		<port>389</port> 
+		<domain>@tech.cig.com.cn</domain> 
+		<admin>ldap</admin> 	
+		<pwd>b!y4=i3iYzIc</pwd>
+		<last_sync_time>2017-10-25 20:16:47</last_sync_time>		
+	<BaseDN><BD0>OU=质量管理部,OU=数据产品中心,OU=车慧,OU=新意互动</BD0></BaseDN></LDAP_conf>
+	<Mail_conf>
+		<smtpHost>mail.hd.cig.com.cn</smtpHost>
+		<account>asws@hd.cig.com.cn</account>
+		<passwd></passwd>
+		<tls>false</tls>
+		<ssl>false</ssl>
+		<port>25</port>
+		<auth>true</auth>
+	</Mail_conf>
+	</atmp-config>

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>位置管理</title>
+	<link rel="stylesheet" type="text/css" href="css/comm.css">
+	<link rel="stylesheet" type="text/css" href="css/media.css">
+</head>
+
+<body>
+	<div id="container">
+
+	<!--功能按钮-->
+	<header>
+		<table width="100%" cellspacing="0" cellpadding="0"><tbody><tr>
+			<td width=20%>
+				选择媒体：		
+				<select id="meidas">
+					<option>医护端APP</option>
+					<option>客户端APP</option>
+					<option>地推端APP</option>
+				</select>
+			</td>
+			<td width=35%>
+				<button id="AddPosi" class="module_butt">添加位置</button>			
+				<button id="DelPosi" class="module_butt">删除位置</button>
+			</td>
+			<td align='right'>
+				<select id="phase" type="text">
+					<option value="position">位置</option>
+					<option value="label">标签</option>
+					<option value="size">尺寸</option>
+					<option value="type">素材类型</option>
+				</select>
+				<input id="filter" type="text">
+				<button class="module_butt" href="javascript:void(0)" onclick="filt()">查找</button>
+			</td>
+		</tr></tbody></table>	
+	</header>
+	<!--用户列表-->
+	<div id="Medialist">
+		<table id="tab_medialist" width="100%" cellspacing="0" cellpadding="0">
+			<tbody>
+			<thead>
+				<th>ID</th>
+				<th>位置</th>
+				<th>标签</th>
+				<th>尺寸（高*宽）</th>
+				<th style="border-right: 0">素材类型</th>
+			</thead>
+			<tbody id="tbody_medialist">
+				<tr id="1">
+					<td>1</td>
+					<td>首页顶部通栏</td>
+					<td>firstpage_top1</td>
+					<td>35*120</td>
+					<td style="border-right: 0">图片</td>
+				</tr>
+				<tr id="2">
+					<td>2</td>
+					<td>“我的”页中部通栏</td>
+					<td>mypage_middle1</td>
+					<td></td>
+					<td style="border-right: 0">文本</td>
+				</tr>
+				<tr id="3">
+					<td style="border-bottom: 0">3</td>
+					<td style="border-bottom: 0">“服务协议”页底部通栏</td>
+					<td style="border-bottom: 0">servicepage_bottom1</td>
+					<td style="border-bottom: 0">35*120</td>
+					<td style="border-right: 0;border-bottom: 0">图片，视频</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="pages">
+		<button id="Fir_page" href="javascript:void(0)" onclick="Topage(1)" class="butt_page">首&nbsp;页</button>
+		<button id="Pre_page" href="javascript:void(0)" onclick="Nextpage('-')" class="butt_page" style="margin-right: 10px">上一页</button>
+		<span>第<span id="curr_page">1</span>页，共<span id="page_num">1</span>页&nbsp;</span>
+		<button id="Next_page" href="javascript:void(0)" onclick="Nextpage('+')" class="butt_page" style="margin-left: 10px">下一页</button>
+		<button id="Las_page" href="javascript:void(0)" onclick="Topage(0)" class="butt_page">尾&nbsp;页</button>
+	</div>
+	<!--遮罩层：用于显示弹层后遮盖下面的页面元素-->
+	<div id="overlay" class="overlay"></div>		
+	<div id="overlay2" class="overlay2"></div>
+	<!--弹层：用户信息，用于添加本地用户或者修改用户信息-->	
+	<div id="form_Posi" class="popwindow">
+		<div id="title_Posi" class="pop_head">位置管理</div>
+		<div class="pop_body">
+			<table id="Posi_table" cellspacing="0" cellpadding="0"><tbody>
+				<tr>
+					<td>位置:<input id="posi"></td>
+				</tr>
+				<tr>
+					<td>标签:<input id="label"></td>
+				</tr>
+				<tr>
+					<td>尺寸:<input id="h">px&nbsp;&nbsp;＊<input id="w">px（高＊宽）</td>
+				</tr>
+				<tr>
+					<td>素材类型:<select id="type"><option>图片</option><option>文字</option><option>视频</option></select></td>
+				</tr>
+			</tbody></table>
+		</div>
+		<div class="pop_foot">
+			<table width="100%" cellspacing="0" cellpadding="0"><tbody>
+				<tr><td width="50%" align="center" valign="middle">
+					<button href="javascript:void(0)" onclick="CloseForm('#form_Posi','#overlay')">取消</button>
+				</td><td align="center" valign="middle">
+					<button href="javascript:void(0)" onclick="CloseForm('#form_Posi','#overlay')">保存</button>
+				</td></tr>
+			</tbody></table>				
+		</div>
+	</div>
+	<!--弹层：警告-->
+	<div id="form_alert" class="popwindow">
+		<div id="form_alert_title" class="pop_head">友好提醒</div>
+		<div class="pop_body" style="text-align: center;padding:20px 40px 10px 40px;">
+			<span id="alert_mess"></span>
+		</div>
+		<div id="alertbutt">
+			<button class="form_butt" href="javascript:void(0)" onclick="close_alerm()">确定</button>		
+		</div>
+	</div>
+	<!--弹层：确认-->
+	<div id="form_confirm" class="popwindow">
+		<div id="form_confirm_title" class="pop_head">友好提醒</div>
+		<div class="pop_body">
+			<div class="pop_body" style="text-align: center;padding:20px 40px 10px 40px;">
+				<span id="warn_mess"></span>
+			</div>
+			<div id="confirmbutt">
+				<table width="100%" cellspacing="0" cellpadding="0"><tbody><tr>
+					<td width="50%" align="center">
+						<button class="form_butt" href="javascript:void(0)" onclick="CloseForm('#form_confirm','#overlay')">确定</button>
+					</td>
+					<td align="center">
+						<button class="form_butt" href="javascript:void(0)" onclick="CloseForm('#form_confirm','#overlay')">取消</button>
+					</td>
+				</tr></tbody></table>
+			</div>
+		</div>
+	</div>
+	</div><!--用于结束container-->
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/comm.js"></script>
+<script type="text/javascript" src="js/position.js"></script>
+</html>
